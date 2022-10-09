@@ -46,11 +46,22 @@ The abstract should briefly summarize the contents of the paper in
 In this section, we will introduce the subject to be dealt with as well 
 as a brief description of the rest of the sections of the work.
 
-\subsection{Description of the sections of the work}
-TODO
-
 \subsection{Description of the topic to be addressed}
-TODO
+In this work we are going to apply the algorithm A* and PEA* to the 8-puzzle problem, 
+for this we are going to use different heuristics, 
+one of these heuristics is the one we propose in this work, 
+which we call "The most humble first" or MHF. 
+
+\subsection{Description of the sections of the work}
+In the following points we will discuss:
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Description of the 8-puzzle problem, in this section we will detail how the problem in question works.
+\item Description of the algorithms involved in the work, in this section we will explain in detail how the algorithms used work, as well as a brief state of the art of them.
+\item Application of the algorithms to the 8-puzzle problem, we will explain the approach we have taken to the 8-puzzle problem, as well as the heuristics to be used, including the one we propose in this work.
+\item Experimentation, we will compare different heuristics, as well as the one proposed in this wok.
+\item Conclusion, here we will give our critical opinion on this application of the algorithm.
+\end{enumerate}
 
 \section{The 8-puzzle problem}
 TODO
@@ -137,8 +148,8 @@ The \(PEA^*\) algorithm have a function, very similar to the \(A^*\) function, b
 f_{PEA}^*(n) = g^*(n) + h^*(n) * (1 + \epsilon)
 \end{equation}
 
-Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\),
-\(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node and
+Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\), 
+\(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node and 
 \(\epsilon\) is a constant that is used to control the expansion of the nodes.\\
 You can see this algorithm in more detail in Maria Rita's tesis \cite{algorithms_5}.
 
