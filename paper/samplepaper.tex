@@ -57,48 +57,92 @@ TODO
 
 \section{The search algorithms}
 In this section, we will discuss about search algorithms, doing a distincion between uninformed and informed search algorithms.
-The uninformed algorithms that we will discuss are: Best First (BF).
+The uninformed algorithms that we will discuss are: Best First (\(BF\)).
 The informed algorithms that we will discuss are: A* and PEA*.
 
 \subsection{Best first search (\(BF\))}
 The uninformed search algorithms are those thay do not use any information about the problem, they just expand the next node in the frontier.
 The most important thing that differentiates the various uninformed algorithms is the method they use to expand the next node in the frontier.
-Hereafter, we will trate the Best First (BF) search algorithm.
+Hereafter, we will trate the Best First (\(BF\)) search algorithm.
 
-We will start with the "Best First" (BF) search algorithm \cite{algorithms}, which is the basis of informed search algorithms, such as \(A^*\).
-BF is based on the idea of idea of expanding the node with the lowest cost. The cost of a node is calculated by the heuristic function \(h(n)\) used. \\
-The BF algorithm is as follows:
+We will start with the "Best First" (\(BF\)) search algorithm \cite{algorithms}, which is the basis of informed search algorithms, such as \(A^*\).
+\(BF\) is based on the idea of idea of expanding the node with the lowest cost. The cost of a node is calculated by the heuristic function \(h(n)\) used. \\
+In the \(BF\) algorithm, we have two list, the list "open" that this list contains the nodes that are not expanded yet, and the list "closed" that contains the nodes that are expanded:
 \begin{enumerate}
-\item Expand the node with the lowest cost \(h(n)\).
+\item Initialises the "open" list with the start node.
+\item Initialises the "closed" list with the empty list.
+\item While the "open" list is not empty:
+\begin{enumerate}
+\item Select the node with the lowest cost, following the given \(h(n)\), in the "open" list and remove it from the "open" list.
 \item If the node is the goal, stop.
-\item If not, add the node to the list of expanded nodes and expand its children.
-\item Repeat from step 1.
+\item If not, add the node to the "closed" list and expand its children.
+\item For each child:
+\begin{enumerate}
+\item If the child is in the "closed" list, do nothing.
+\item If the child is not in the "open" list, add it.
+\item If the child is in the "open" list, but the path to the child is better than the previous path, replace the child in the "open" list with the new child.
 \end{enumerate}
-
+\end{enumerate}
+\item Return to Step 3.
+\end{enumerate}
 You can see a more detailed description and a implementation of the algorithm in Russell's and Norvig's book \cite{algorithms_2}.
 
 \subsection{\(A^*\)}
 
 The informed search algorithms are those that use the any information about the problem to expand the next node in the frontier.\\
-The \(A^*\) algorithm is a variation of the BF algorithm. In \(A^*\), use a function \(f\) to evaluate the nodes, this function in \(A^*\) is representate by \(f^*(n)\) and this is the cost of the shortest path from initial to \(n\) conditional on passing through \(n\).
+The \(A^*\) algorithm is a variation of the \(BF\) algorithm, this was proposed by Peter E. Hart, Nils J. Nilsson and Bertram Raphael in their work in 1968 \cite{algorithms_3}.\\
+In \(A^*\), use a function \(f\) to evaluate the nodes, this function in \(A^*\) is representate by \(f^*(n)\) and this is the cost of the shortest path from initial to \(n\) conditional on passing through \(n\).
 The function \(f^*(n)\) (where n is any node) is defined as equation \ref{eqn:a*}:
+
 \begin{equation}\label{eqn:a*}
 f^*(n) = g^*(n) + h^*(n)
 \end{equation}
-Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\), and \(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node.
 
-The \(A^*\) algorithm is as follows:
+Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\), and \(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node, you can see this function in more detail in Nilsson's book "Principles of artificial intelligence" \cite{algorithms_4}.
+In A* we talk about f*, g* and h*, but in most cases these are only estimates because it is very complicated for complex problems to know the exact values, if we knew them the algorithm would go straight to the goal. Instead we use the estimates f, g and h, so the function would be as we can see in equation \ref{eqn:a_2}:
+
+\begin{equation}\label{eqn:a_2}
+f(n) = g(n) + h(n)
+\end{equation}
+
+The \(A^*\) algorithm is as follows, we have two list, the list "open" that this list contains the nodes that are not expanded yet, and the list "closed" that contains the nodes that are expanded:
+
 \begin{enumerate}
-\item Expand the node with the lowest cost \(f^*(n)\).
+\item Initialises the "open" list with the start node.
+\item Initialises the "closed" list with the empty list.
+\item While the "open" list is not empty:
+\begin{enumerate}
+\item Select the node with the lowest cost, you can se the equation in \ref{eqn:a*}, in the "open" list and remove it from the "open" list.
 \item If the node is the goal, stop.
-\item If not, add the node to the list of expanded nodes and expand its children.
-\item Repeat from step 1.
+\item If not, add the node to the "closed" list and expand its children.
+\item For each child:
+\begin{enumerate}
+\item If the child is in the "closed" list, do nothing.
+\item If the child is not in the "open" list, add it.
+\item If the child is in the "open" list, but the \(f(child)\) is better than the previous path, replace the child in the "open" list with the new child.
+\end{enumerate}
+\end{enumerate}
+\item Return to Step 3.
 \end{enumerate}
 
-\subsection{\(PEA^*\)}
-TODO
+One problem that have the \(A^*\) algorithm is that it can be very slow, because it can expand a lot of nodes, and this can be a problem if the problem has a lot of nodes. To solve this problem, we can use the PEA* algorithm.\\
+If you want to see a more detailed description and a implementation of the algorithm, you can see Russell's and Norvig's book \cite{algorithms_2}.
 
-\section{Application of the A* and PEA* algorithms to the 8-puzzle problem}
+\subsection{\(PEA^*\)}
+The \(PEA^*\) algorithm is a variation of the \(A^*\) algorithm, in fact it is faster than the base algorithm \(A^*\).
+\(PEA^*\) is a not admitted algorithm, this means that it is not guaranteed to find the optimal solution, but it is very fast and it is very useful in practice.
+The \(PEA^*\) algorithm have a function, very similar to the \(A^*\) function, but it is not the same, this function is called \(f_{PEA}^*(n)\) and is defined in equation \ref{eqn:pea*}:
+
+\begin{equation}\label{eqn:pea*}
+f_{PEA}^*(n) = g^*(n) + h^*(n) * (1 + \epsilon)
+\end{equation}
+
+Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\),
+\(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node and
+\(\epsilon\) is a constant that is used to control the expansion of the nodes.\\
+You can see this algorithm in more detail in Maria Rita's tesis \cite{algorithms_5}.
+
+\section{Application of the A* and \(PEA^*\) algorithms to the 8-puzzle problem}
 TODO
 
 \section{Experimental study}
