@@ -55,7 +55,47 @@ TODO
 \section{The 8-puzzle problem}
 TODO
 
-\section{The A* and PEA* algorithms}
+\section{The search algorithms}
+In this section, we will discuss about search algorithms, doing a distincion between uninformed and informed search algorithms.
+The uninformed algorithms that we will discuss are: Best First (BF).
+The informed algorithms that we will discuss are: A* and PEA*.
+
+\subsection{Best first search (\(BF\))}
+The uninformed search algorithms are those thay do not use any information about the problem, they just expand the next node in the frontier.
+The most important thing that differentiates the various uninformed algorithms is the method they use to expand the next node in the frontier.
+Hereafter, we will trate the Best First (BF) search algorithm.
+
+We will start with the "Best First" (BF) search algorithm \cite{algorithms}, which is the basis of informed search algorithms, such as \(A^*\).
+BF is based on the idea of idea of expanding the node with the lowest cost. The cost of a node is calculated by the heuristic function \(h(n)\) used. \\
+The BF algorithm is as follows:
+\begin{enumerate}
+\item Expand the node with the lowest cost \(h(n)\).
+\item If the node is the goal, stop.
+\item If not, add the node to the list of expanded nodes and expand its children.
+\item Repeat from step 1.
+\end{enumerate}
+
+You can see a more detailed description and a implementation of the algorithm in Russell's and Norvig's book \cite{algorithms_2}.
+
+\subsection{\(A^*\)}
+
+The informed search algorithms are those that use the any information about the problem to expand the next node in the frontier.\\
+The \(A^*\) algorithm is a variation of the BF algorithm. In \(A^*\), use a function \(f\) to evaluate the nodes, this function in \(A^*\) is representate by \(f^*(n)\) and this is the cost of the shortest path from initial to \(n\) conditional on passing through \(n\).
+The function \(f^*(n)\) (where n is any node) is defined as equation \ref{eqn:a*}:
+\begin{equation}\label{eqn:a*}
+f^*(n) = g^*(n) + h^*(n)
+\end{equation}
+Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\), and \(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node.
+
+The \(A^*\) algorithm is as follows:
+\begin{enumerate}
+\item Expand the node with the lowest cost \(f^*(n)\).
+\item If the node is the goal, stop.
+\item If not, add the node to the list of expanded nodes and expand its children.
+\item Repeat from step 1.
+\end{enumerate}
+
+\subsection{\(PEA^*\)}
 TODO
 
 \section{Application of the A* and PEA* algorithms to the 8-puzzle problem}
@@ -132,11 +172,7 @@ For citations of references, we prefer the use of square brackets
 and consecutive numbers. Citations using labels or the author/year
 convention are also acceptable. The following bibliography provides
 a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
+\cite{BFS}
 %
 % ---- Bibliography ----
 %
@@ -146,25 +182,8 @@ and a homepage~\cite{ref_url1}. Multiple citations are grouped
 % \bibliographystyle{splncs04}
 % \bibliography{mybibliography}
 %
-\begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
 
-\bibitem{ref_lncs1}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+\bibliography{refs} 
+\bibliographystyle{ieeetr} 
 
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
-
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
-
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}. Last accessed 4
-Oct 2017
-\end{thebibliography}
 \end{document}
