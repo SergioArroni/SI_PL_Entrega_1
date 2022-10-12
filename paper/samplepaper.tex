@@ -64,7 +64,36 @@ In the following points we will discuss:
 \end{enumerate}
 
 \section{The 8-puzzle problem}
-TODO
+The 8-puzzle problem is well known and used for the study of search algorithms, informed or uninformed, 
+generally of the second type, i.e., they also include the study of various heuristics that try to reach 
+the objective state in the optimal way. However, heuristics can be applied simply with the intention to 
+analyze it without the need for it to be good.
+
+\subsection{Description of problem}
+It is actually a concrete example of the n-puzzle problem, which is used because it is simple to understand 
+at this size.
+
+So, for this particular example, we have a 3x3 board where 8 of the cells are filled with all the numbers 
+from 1 to 8 while one remains empty. This will be the one to which we have to move the cells in order to reach 
+the desired final state.
+
+There are 4 possible movements, displacement of a cell to its adjacent cell located in the north, south, east 
+or west as long as the cell is empty in one of the locations.
+
+The cost of each movement is 1, and the goal is to reach the target state by adding as few movements as possible 
+and, therefore, achieving the lowest cost.
+
+\subsection{Classic methods of resolution}
+As I said at the beginning, the algorithms that can be used to solve this problem can be informed, such as algorithms 
+A*, PEA*, IDA*, and not informed such as DFID, BFS....
+
+We will study the application of the A* and PEA* algorithms with heuristics having different characteristics.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.65\textwidth]{8puzzle.png}
+\caption{Figure showing the starting point, the objective and the stages we went through to achieve it.} \label{fig1}
+\end{figure}
 
 \section{The search algorithms}
 In this section, we will discuss about search algorithms, doing a distincion between uninformed and informed search algorithms.
@@ -154,7 +183,16 @@ Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\)
 You can see this algorithm in more detail in Maria Rita's tesis \cite{algorithms_5}.
 
 \section{Application of the A* and \(PEA^*\) algorithms to the 8-puzzle problem}
-TODO
+The two algorithms that we are going to study are informed, i.e., we are facing a heuristic search and, therefore, we have to apply a heuristic to reach the solution, 
+we have to apply a heuristic to reach the solution. The state space of this problem is defined by 
+the set of possible combinations on the board, i.e. the location of all the tiles.
+
+We will apply the same heuristics to both algorithms. They are the following:
+\begin{enumerate}
+    \item h1(n): number of tiles that are out of place. Easy to perform, but does not provide the best possible results. Monotone.
+    \item h2(n): sum of orthogonal distances from each tile to its final position. Effective for short problems giving the best solutions. Monotone.
+    \item h3(n): 2*number of tiles at orthogonal distance 2 from their final position
+\end{enumerate}
 
 \section{Experimental study}
 TODO
@@ -202,13 +240,6 @@ x + y = z
 Please try to avoid rasterized images for line-art diagrams and
 schemas. Whenever possible, use vector graphics instead (see
 Fig.~\ref{fig1}).
-
-\begin{figure}
-\includegraphics[width=\textwidth]{fig1.eps}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
-\end{figure}
 
 \begin{theorem}
 This is a sample theorem. The run-in heading is set in bold, while
