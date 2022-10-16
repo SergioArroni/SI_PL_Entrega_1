@@ -16,7 +16,7 @@
 
 \begin{document}
 %
-\title{The best work\thanks{Degree in Software Engineering, University of Oviedo}}
+\title{The implication of the A* and PEA* algorithms in the 8-puzzle problem.\thanks{Degree in Software Engineering, University of Oviedo}}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -33,13 +33,13 @@ Antón de la Calle, Manuel \orcidID{276213}}
 \institute{Oviedo University, Oviedo Asturias, Spain\\
 \url{https://uniovi.es}}
 %
-\maketitle              % typeset the header of the contribution
+\maketitle             % typeset the header of the contribution
 %
 \begin{abstract}
-The abstract should briefly summarize the contents of the paper in
-15--250 words.
+    Search algorithms are very important in Artificial Intelligence because they are the basis for many of the solutions in the different fields of Artificial Intelligence. In this work we will explain the A* and PEA* algorithms and we will compare them in the 8-puzzle problem. We will explain the differences between them.
+    In addition, we will carry out an experimental study on the different heuristics we have used, which use the A* and PEA* algorithms. Finally, we will give our conclusion on the data obtained and we will say which is for us the better of the two algorithms. 
 
-\keywords{A*  \and PEA* \and Search \and heuristic \and 8-puzzle.}
+\keywords{A*  \and PEA* \and Search \and heuristic \and 8-puzzle \and IA \and Uniovi.}
 \end{abstract}
 %
 %
@@ -129,7 +129,7 @@ In the \(BF\) algorithm, we have two list, the list "open" that this list contai
 \end{enumerate}
 You can see a more detailed description and a implementation of the algorithm in Russell's and Norvig's book \cite{algorithms_2}.
 
-\subsection{\(A^*\)}
+\subsection{The \(A^*\) algorithm}
 
 The informed search algorithms are those that use the any information about the problem to expand the next node in the frontier.\\
 The \(A^*\) algorithm is a variation of the \(BF\) algorithm, this was proposed by Peter E. Hart, Nils J. Nilsson and Bertram Raphael in their work in 1968 \cite{algorithms_3}.\\
@@ -170,7 +170,7 @@ The \(A^*\) algorithm is as follows, we have two list, the list "open" that this
 One problem that have the \(A^*\) algorithm is that it can be very slow, because it can expand a lot of nodes, and this can be a problem if the problem has a lot of nodes. To solve this problem, we can use the PEA* algorithm.\\
 If you want to see a more detailed description and a implementation of the algorithm, you can see Russell's and Norvig's book \cite{algorithms_2}.
 
-\subsection{\(PEA^*\)}
+\subsection{The \(PEA^*\) algorithm}
 The \(PEA^*\) algorithm is a variation of the \(A^*\) algorithm, in fact it is faster than the base algorithm \(A^*\).
 \(PEA^*\) is a not admitted algorithm, this means that it is not guaranteed to find the optimal solution, but it is very fast and it is very useful in practice.
 The \(PEA^*\) algorithm have a function, very similar to the \(A^*\) function, but it is not the same, this function is called \(f_{PEA}^*(n)\) and is defined in equation \ref{eqn:pea*}:
@@ -260,7 +260,6 @@ For citations of references, we prefer the use of square brackets
 and consecutive numbers. Citations using labels or the author/year
 convention are also acceptable. The following bibliography provides
 a sample reference list with entries for journal
-\cite{BFS}
 %
 % ---- Bibliography ----
 %
@@ -274,7 +273,9 @@ a sample reference list with entries for journal
 \bibliography{refs} 
 \bibliographystyle{ieeetr} 
 \appendix
-\chapter*{Annex 1: Work Distribution }
-
-
+\chapter*{Annex 1: Work Distribution}
+Arroni del Riego, Sergio\orcidID{Uo276341}: I realize the Introduction, A*, PEA*, and BF algorithms explication, Abstract, and KeyWords.\\
+Galán Freire, Alejandro\orcidID{Uo277346}: I realize the 8-puzzle problem explication, the application of the A* and PEA* algorithms to the 8-puzzle problem, and conclusions.\\
+Antón de la Calle, Manuel\orcidID{Uo276213}: I realize the Experimental study.\\
+All: All of us did the tasks of writing in English and using LaTex for the writing of the work.
 \end{document}
