@@ -194,8 +194,34 @@ We will apply the same heuristics to both algorithms. They are the following:
     \item h1(n): number of tiles that are out of place. Easy to perform, but does not provide the best possible results. Monotone.
     \item h2(n): sum of orthogonal distances from each tile to its final position. Effective for short problems giving the best solutions. Monotone.
     \item h3(n): 2*number of tiles at orthogonal distance 2 from their final position
+    \item h4(n): h2 multiplied by 0.4 summed with h1
 \end{enumerate}
+\subsection{Properties of heuristics}
+The first two heuristics are typical for solving the 8-puzzle problem with 
+the A* algorithm. They are monotone by satisfying that their sequence of 
+values f(n) of the expanded nodes is non-decreasing, and they also satisfy 
+that $$h(n1) \leq h(n2) + c(n1,n2)$$, and this also implies that they are admissible, 
+i.e., they always reach the optimal solution.
 
+On the other hand, we know that h2 is the best heuristic since the ideal 
+case is that the length of the trajectory to the target position is equal 
+to the orthogonal distance of the token to its target. Also this heuristic 
+is more informed than the rest, i.e., h2 dominates the rest of heuristics 
+tested for solving this problem, which means that all nodes expanded by h2 
+will be expanded by the rest of heuristics. It satisfies $$hx(n) < h2(n) \leq h^*(n)$$
+
+On the other hand, we believe that h3 also meets the characteristics 
+of the first two heuristics because of the data obtained in the study 
+shown in the next point of the practice. Anyway, it is not as good heuristic as h1 and h2.
+
+Finally, h4 is not monotonic because the f(n) values of the expanded 
+nodes is decreasing. Moreover, it is not admissible and we can make 
+the following proof:
+
+We know that h1 and h2 are admissible so they satisfy that 
+$$hx(n) \leq h^*(n)$$ for all values of n. If we then assume that 
+h1(n) = h2(n) = h*(n) = 1, we have that $$h4(n) = 1 + 0.4*1 > h*(n)$$, 
+so it does not satisfy the admissibility condition. 
 \section{Experimental study}
 TODO
 
