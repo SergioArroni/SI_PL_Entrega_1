@@ -85,6 +85,9 @@ or west as long as the cell is empty in one of the locations.
 The cost of each movement is 1, and the goal is to reach the target state by adding as few movements as possible 
 and, therefore, achieving the lowest cost.
 
+The target state that we will consider is as follows:
+{1, 2, 3, 8, 0, 4, 7, 6, 5}
+
 \subsection{Classic methods of resolution}
 As I said at the beginning, the algorithms that can be used to solve this problem can be informed, such as algorithms 
 A*, PEA*, IDA*, and not informed such as DFID, BFS....
@@ -185,9 +188,15 @@ Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\)
 You can see this algorithm in more detail in Maria Rita's tesis \cite{algorithms_5}.
 
 \section{Application of the A* and \(PEA^*\) algorithms to the 8-puzzle problem}
-The two algorithms that we are going to study are informed, i.e., we are facing a heuristic search and, therefore, we have to apply a heuristic to reach the solution, 
+The two algorithms that we are going to study are informed, i.e., we are facing a heuristic search and, therefore, 
 we have to apply a heuristic to reach the solution. The state space of this problem is defined by 
 the set of possible combinations on the board, i.e. the location of all the tiles.
+
+A* is admissible when an admissible heuristic is applied to it, but 
+PEA* is an $\varepsilon-admissible$ algorithm, which are algorithms that give up 
+admissibility when the problem size is too large. Therefore, for the 
+study of this algorithm applied to the 8-puzzle problem we will use 
+different values of epsilon to be specified in the experimental study.
 
 We will apply the same heuristics to both algorithms. They are the following:
 \begin{enumerate}
@@ -226,7 +235,18 @@ so it does not satisfy the admissibility condition.
 TODO
 
 \section{Conclusions}
-TODO
+As a conclusion we can observe in the tests performed that the best 
+algorithm is A* as it always finds the optimal solution, while sometimes 
+PEA* does not achieve it (not even reaching the target state) increasing 
+the number of moves to perform and the cost while decreasing the time spent 
+as well as the number of expanded nodes. We also note that among the epsilon 
+values tested (0.1, 10, 100) the one that gives the best results is 10.
+
+As for the heuristics, according to the study carried out, the best is h2, 
+expanding fewer nodes than the rest as it is more informed and always obtaining 
+the optimal solution, the latter as well as h1 and h3. The worst of all we 
+see is h4, not being admissible and in the results not reaching the best possible 
+solution in one of the occasions.
 
 \section{DE AQUI PARA ABAJO = BASURA, LO DEJO DE EJEMPLO}
 Please note that the first paragraph of a section or subsection is
