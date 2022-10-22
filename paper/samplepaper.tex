@@ -50,9 +50,7 @@ as a brief description of the rest of the sections of the work.
 
 \subsection{Description of the topic to be addressed}
 In this work we are going to apply the algorithm A* and PEA* to the 8-puzzle problem, 
-for this we are going to use different heuristics, 
-one of these heuristics is the one we propose in this work, 
-which we call "The most humble first" or MHF. 
+for this we are going to use different heuristics.
 
 \subsection{Description of the sections of the work}
 In the following points we will discuss:
@@ -61,8 +59,8 @@ In the following points we will discuss:
 \item Description of the 8-puzzle problem, in this section we will detail how the problem in question works.
 \item Description of the algorithms involved in the work, in this section we will explain in detail how the algorithms used work, as well as a brief state of the art of them.
 \item Application of the algorithms to the 8-puzzle problem, we will explain the approach we have taken to the 8-puzzle problem, as well as the heuristics to be used, including the one we propose in this work.
-\item Experimentation, we will compare different heuristics, as well as the one proposed in this wok.
-\item Conclusion, here we will give our critical opinion on this application of the algorithm.
+\item Experimentation, we will compare $A^*$ and $PEA^*$ with various heuristics, as well as the one proposed in this work.
+\item Conclusion, here we will give our critical opinion about this application of the two algorithms.
 \end{enumerate}
 
 \section{The 8-puzzle problem}
@@ -80,7 +78,7 @@ from 1 to 8 while one remains empty. This will be the one to which we have to mo
 the desired final state.
 
 There are 4 possible movements, displacement of a cell to its adjacent cell located in the north, south, east 
-or west as long as the cell is empty in one of the locations.
+or west as long as the cell is empty in one of the locations. Figure \ref{fig1} shows three possible states.
 
 The cost of each movement is 1, and the goal is to reach the target state by adding as few movements as possible 
 and, therefore, achieving the lowest cost.
@@ -90,9 +88,9 @@ The target state that we will consider is as follows:
 
 \subsection{Classic methods of resolution}
 As I said at the beginning, the algorithms that can be used to solve this problem can be informed, such as algorithms 
-A*, PEA*, IDA*, and not informed such as DFID, BFS....
+$A^*$ and $PEA^*$, and not informed such as BFS (more information you can find in \cite{algorithms_2}).
 
-We will study the application of the A* and PEA* algorithms with heuristics having different characteristics.
+We will study the application of the $A^*$ and $PEA^*$ algorithms with heuristics having different characteristics.
 
 \begin{figure}
 \centering
@@ -101,39 +99,22 @@ We will study the application of the A* and PEA* algorithms with heuristics havi
 \end{figure}
 
 \section{The search algorithms}
-In this section, we will discuss about search algorithms, doing a distincion between uninformed and informed search algorithms.
+In this section, we will discuss about search algorithms, doing a distinction between uninformed and informed search algorithms.
 The uninformed algorithms that we will discuss are: Best First (\(BF\)).
-The informed algorithms that we will discuss are: A* and PEA*.
+The informed algorithms that we will discuss are: $A^*$ and $PEA^*$.
 
 \subsection{Best first search (\(BF\))}
-The uninformed search algorithms are those thay do not use any information about the problem, they just expand the next node in the frontier.
+The uninformed search algorithms are those that do not use any information about the problem, they just expand the next node in the frontier.
 The most important thing that differentiates the various uninformed algorithms is the method they use to expand the next node in the frontier.
 Hereafter, we will trate the Best First (\(BF\)) search algorithm.
 
 We will start with the "Best First" (\(BF\)) search algorithm \cite{algorithms}, which is the basis of informed search algorithms, such as \(A^*\).
 \(BF\) is based on the idea of idea of expanding the node with the lowest cost. The cost of a node is calculated by the heuristic function \(h(n)\) used. \\
-In the \(BF\) algorithm, we have two list, the list "open" that this list contains the nodes that are not expanded yet, and the list "closed" that contains the nodes that are expanded:
-\begin{enumerate}
-\item Initialises the "open" list with the start node.
-\item Initialises the "closed" list with the empty list.
-\item While the "open" list is not empty:
-\begin{enumerate}
-\item Select the node with the lowest cost, following the given \(h(n)\), in the "open" list and remove it from the "open" list.
-\item If the node is the goal, stop.
-\item If not, add the node to the "closed" list and expand its children.
-\item For each child:
-\begin{enumerate}
-\item If the child is in the "closed" list, do nothing.
-\item If the child is not in the "open" list, add it.
-\item If the child is in the "open" list, but the path to the child is better than the previous path, replace the child in the "open" list with the new child.
-\end{enumerate}
-\end{enumerate}
-\item Return to Step 3.
-\end{enumerate}
+In the \(BF\) algorithm, we have two list, the list "open" that this list contains the nodes that are not expanded yet, and the list "closed" that contains the nodes that are expanded.
+
 You can see a more detailed description and a implementation of the algorithm in Russell's and Norvig's book \cite{algorithms_2}.
 
 \subsection{The \(A^*\) algorithm}
-
 The informed search algorithms are those that use the any information about the problem to expand the next node in the frontier.\\
 The \(A^*\) algorithm is a variation of the \(BF\) algorithm, this was proposed by Peter E. Hart, Nils J. Nilsson and Bertram Raphael in their work in 1968 \cite{algorithms_3}.\\
 In \(A^*\), use a function \(f\) to evaluate the nodes, this function in \(A^*\) is representate by \(f^*(n)\) and this is the cost of the shortest path from initial to \(n\) conditional on passing through \(n\).
@@ -143,7 +124,7 @@ The function \(f^*(n)\) (where n is any node) is defined as equation \ref{eqn:a*
 f^*(n) = g^*(n) + h^*(n)
 \end{equation}
 
-Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\), and \(h*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node, you can see this function in more detail in Nilsson's book "Principles of artificial intelligence" \cite{algorithms_4}.
+Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\), and \(h^*(n)\) is the heuristic function that estimates the cost of the path from the node \(n\) to the goal node, you can see this function in more detail in Nilsson's book "Principles of artificial intelligence" \cite{algorithms_4}.
 In A* we talk about f*, g* and h*, but in most cases these are only estimates because it is very complicated for complex problems to know the exact values, if we knew them the algorithm would go straight to the goal. Instead we use the estimates f, g and h, so the function would be as we can see in equation \ref{eqn:a_2}:
 
 \begin{equation}\label{eqn:a_2}
@@ -170,13 +151,13 @@ The \(A^*\) algorithm is as follows, we have two list, the list "open" that this
 \item Return to Step 3.
 \end{enumerate}
 
-One problem that have the \(A^*\) algorithm is that it can be very slow, because it can expand a lot of nodes, and this can be a problem if the problem has a lot of nodes. To solve this problem, we can use the PEA* algorithm.\\
+One problem that have the \(A^*\) algorithm is that it can be very slow, because it can expand a lot of nodes, and this can be a problem if the problem has a lot of nodes. To solve this problem, we can use the $PEA^*$ algorithm.\\
 If you want to see a more detailed description and a implementation of the algorithm, you can see Russell's and Norvig's book \cite{algorithms_2}.
 
 \subsection{The \(PEA^*\) algorithm}
 The \(PEA^*\) algorithm is a variation of the \(A^*\) algorithm, in fact it is faster than the base algorithm \(A^*\).
-\(PEA^*\) is a not admitted algorithm, this means that it is not guaranteed to find the optimal solution, but it is very fast and it is very useful in practice.
-The \(PEA^*\) algorithm have a function, very similar to the \(A^*\) function, but it is not the same, this function is called \(f_{PEA}^*(n)\) and is defined in equation \ref{eqn:pea*}:
+Is a not admitted algorithm, this means that it is not guaranteed to find the optimal solution, but it is very fast and useful in practice.
+The algorithm have a function, very similar to the \(A^*\) function, but it is not the same, this function is called \(f_{PEA}^*(n)\) and is defined in equation \ref{eqn:pea*}:
 
 \begin{equation}\label{eqn:pea*}
 f_{PEA}^*(n) = g^*(n) + h^*(n) * (1 + \epsilon)
@@ -187,57 +168,75 @@ Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\)
 \(\epsilon\) is a constant that is used to control the expansion of the nodes.\\
 You can see this algorithm in more detail in Maria Rita's tesis \cite{algorithms_5}.
 
-\section{Application of the A* and \(PEA^*\) algorithms to the 8-puzzle problem}
-The two algorithms that we are going to study are informed, i.e., we are facing a heuristic search and, therefore, 
-we have to apply a heuristic to reach the solution. The state space of this problem is defined by 
-the set of possible combinations on the board, i.e. the location of all the tiles.
+\section{Application of the $A^*$ and \(PEA^*\) algorithms to the 8-puzzle problem}
+The state space of this problem is defined by the set of possible combinations on the board,
+ i.e. the location of all the tiles.
 
-A* is admissible when an admissible heuristic is applied to it, but 
-PEA* is an $\varepsilon-admissible$ algorithm, which are algorithms that give up 
-admissibility when the problem size is too large. Therefore, for the 
-study of this algorithm applied to the 8-puzzle problem we will use 
+$A^*$ is admissible when an admissible heuristic is applied to it, but 
+$PEA^*$ is an $\varepsilon-admissible$ algorithm, which give up 
+admissibility when the problem size is too large. Therefore, we will use 
 different values of epsilon to be specified in the experimental study.
 
 We will apply the same heuristics to both algorithms. They are the following:
 \begin{enumerate}
-    \item $h_1(n)$: number of tiles that are out of place. Easy to perform, but does not provide the best possible results.
-    \item $h_2(n)$: sum of orthogonal distances from each tile to its final position. Effective for short problems giving the best solutions.
-    \item $h_3(n)$: $2*number$ of tiles at orthogonal distance 2 from their final position
-    \item $h_4(n)$: $h_2$ multiplied by 0.4 summed with $h_1$
+    \item $h_1(n)$: number of tiles that are out of place.
+    \item $h_2(n)$: sum of orthogonal distances from each tile to its final position.
+    \item $h_3(n)$: $2*number$ of tiles at orthogonal distance 2 from their final position.
+    \item $h_4(n)$: $h_2$ multiplied by 0.4 summed with $h_1$.
 \end{enumerate}
 \subsection{Properties of heuristics}
 The first two heuristics are typical for solving the 8-puzzle problem with 
-the A* algorithm. They are monotone by satisfying that their sequence of 
-values f(n) of the expanded nodes is non-decreasing, and they also satisfy 
-that $$h(n1) \leq h(n2) + c(n1,n2)$$, and this also implies that they are admissible, 
+the $A^*$ algorithm. They are monotone by satisfying that their sequence of 
+values f(n) of the expanded nodes is non-decreasing, and they also satisfy equation 
+\ref{eqn:monotone}, and this also implies that they are admissible, 
 i.e., they always reach the optimal solution.
 
-On the other hand, we know that h2 is the best heuristic since the ideal 
+\begin{equation}\label{eqn:monotone}
+    h(n1) \leq h(n2) + c(n1,n2)
+\end{equation}
+
+On the other hand, from the book \cite{algorithms_2} we conclude that $h_2$  is the best heuristic since the ideal 
 case is that the length of the trajectory to the target position is equal 
-to the orthogonal distance of the token to its target. Also this heuristic 
-is more informed than the rest, i.e., h2 dominates the rest of heuristics 
-tested for solving this problem, which means that all nodes expanded by h2 
-will be expanded by the rest of heuristics. It satisfies $$hx(n) < h2(n) \leq h^*(n)$$
+to the orthogonal distance of the token to its target. $h_2$ 
+is more informed than the rest, i.e., it dominates the rest of heuristics 
+tested for solving this problem, which means that all nodes expanded by $h_2$ 
+will be expanded by the rest. It satisfies:
 
-On the other hand, we believe that h3 also meets the characteristics 
+\begin{equation}\label{eqn:dominance}
+    hx(n) < h2(n) \leq h^*(n)
+\end{equation}
+
+Also, we believe that $h_3$ also meets the characteristics 
 of the first two heuristics because of the data obtained in the study 
-shown in the next point of the practice. Anyway, it is not as good heuristic as h1 and h2.
+shown in the next point of the practice. Anyway, it is not as good heuristic as $h_1$ and $h_2$.
 
-Finally, h4 is not monotonic because the f(n) values of the expanded 
+Finally, $h_4$ is not monotonic because the $f(n)$ values of the expanded 
 nodes is decreasing. Moreover, it is not admissible and we can make 
 the following proof:
 
-We know that h1 and h2 are admissible so they satisfy that 
-$$hx(n) \leq h^*(n)$$ for all values of n. If we then assume that 
-h1(n) = h2(n) = h*(n) = 1, we have that $$h4(n) = 1 + 0.4*1 > h*(n)$$, 
+We know that $h_1$ and $h_2$ are admissible so they satisfy equantion \ref{eqn:admissible} for all values of $n$. If we then assume equation 
+\ref{eqn:min_cost}, we have \ref{eqn:h4}, 
 so it does not satisfy the admissibility condition. 
+
+\begin{equation}\label{eqn:min_cost}
+    h_1(n) = h_2(n) = h^*(n) = 1
+\end{equation}
+
+\begin{equation}\label{eqn:admissible}
+    hx(n) \leq h^*(n)
+\end{equation}
+
+\begin{equation}\label{eqn:h4}
+    h4(n) = 1 + 0.4*1 > h*(n)
+\end{equation}
+
 \section{Experimental study}
 In this section, we will test the algorithms to see if the theory holds.
 We will collect data for each algorithm separately, combining the different
 heuristics with various board instances with increasing costs. We will proceed to
 interpret the data to support or refute the theory and finally make a comparison between the two algorithms.
 \subsection{Experimental study design}
-To measure the differences between A* and \(PEA^*\) algorithms we will annotate 
+To measure the differences between $A^*$ and \(PEA^*\) algorithms we will annotate 
 the number of expanded nodes, re-expanded nodes, the cost, the number of moves and the time to finish.
 
 With the \(PEA^*\) algorithm we will use an epsilon $\epsilon_1=0.01$, $\epsilon_2=10$ and $\epsilon_3=100$.
@@ -250,11 +249,13 @@ The computer is a quad-core Intel i7 CPU and 12GB of RAM.
 \subsection{Experimental results}
 The first tests are performed on the \(A^*\) algorithm using the different heuristics and board instances.
 
-Table \ref{tab1} collect the cost and moves for each heuristic and show how $h_1$, $h_2$, $h_3$ are admissible and $h_4$ are not,
-since the theory tells us that the first three always find the best solution and therefore the first three heuristics must show the same, and $h_4$ an equal or higher cost.
+Table \ref{tab1} collects the costs and moves for each heuristic and show how $h_1$, $h_2$, $h_3$ are admissible and $h_4$ are not,
+since the theory tells us that the first three always find the best solution and therefore the three must show the same, and $h_4$ an equal or higher cost.
+
+Of the different heuristics tested, Figure \ref{fig2} shows that the one which gives the best results is $h_2$ since it offers shorter times than the rest,
+expands fewer nodes (the graph not drew due to space limitation) and finds the best solution, followed in second place by $h_1$.
 
 \begin{table}[!htb]
-    \caption{Average path costs and moves for each heueristics using A* with board instances of 15 (left) and 30 (right).}\label{tab1}
     \begin{minipage}{.5\linewidth}
       \centering
       \begin{tabular}{|l|l|l|}
@@ -281,21 +282,16 @@ since the theory tells us that the first three always find the best solution and
             \hline
             \end{tabular}
     \end{minipage} 
+    \caption{Average path costs and moves for each heueristics using A* with board instances of 15 (left) and 30 (right).}\label{tab1}
 \end{table}
-
-Of the different heuristics tested, Figure \ref{fig2} shows that the one which gives the best results is $h_2$ since it offers shorter times than the rest,
-expands fewer nodes (removed from the gram due to space limitation) and finds the best solution, followed in second place by $h_1$.
-
 \begin{figure}
     \centering
     \includegraphics[width=0.65\textwidth]{seconds_A.png}
     \caption{Time in ms to resolve the problem for each heuristic with $A^*$ algorithm.} \label{fig2}
 \end{figure}
 Also, as demonstrated in Section 4, the heuristics $h_3$ and $h_4$ are not monotonic and consistent so they can re-expand nodes, this result is reflected in Table \ref{tab3}.
-
 \begin{table}
     \centering
-    \caption{Nodes re-expanded for each heuristic using $A^*$ and the board instances (\{7, 0, 3, 5, 1, 8, 2, 6, 4\}) and (\{5, 6, 7, 4, 0, 8, 3, 2, 1\}) of cost 15 and 30 respectively. }\label{tab3}
     \begin{tabular}{|l|l|l|}
     \hline
     Heuristic & Cost 15 & Cost 30\\
@@ -306,6 +302,7 @@ Also, as demonstrated in Section 4, the heuristics $h_3$ and $h_4$ are not monot
     $h_4$ & 90 & 9982\\
     \hline
     \end{tabular}
+    \caption{Nodes re-expanded for each heuristic using $A^*$ and the board instances (\{7, 0, 3, 5, 1, 8, 2, 6, 4\}) and (\{5, 6, 7, 4, 0, 8, 3, 2, 1\}) of cost 15 and 30 respectively. }\label{tab3}
 \end{table}
 
 We now continue with the $PEA^*$ algorithm.
@@ -343,11 +340,13 @@ show how the algorithm is inadmissible, since, the costs obtained are equal to o
 \end{table}
 
 
-Next, let's compare the two algorithms:
-This algorithm is used to decrease times and number of nodes expanded
-with respect to $A^*$ in exchange for not finding the best solution (not admissible) so, we will compare it with the best heristic of $A^*$, i.e., we will compare it with $h_2$.
+Next, let's compare the two algorithms.
+$PEA^*$ is used to decrease times and number of nodes expanded
+with respect to $A^*$ in exchange for not finding the best solution (not admissible) so,
+we will compare it with the best heuristic of $A^*$, i.e., we will compare it with $h_2$.
 
-Figures \ref{fig4} show how for more complicated board configurations the $PEA^*$ algorithm gives better performance than $A^*$ respresenting with $\epsilon=0$.
+Figures \ref{fig4} show how for more complicated board configurations the $PEA^*$ algorithm gives
+better performance than $A^*$.
 It highlights how $\epsilon=100$ offers better performance in these tests.
 
 \begin{figure}
@@ -355,20 +354,22 @@ It highlights how $\epsilon=100$ offers better performance in these tests.
     \includegraphics[width=0.65\textwidth]{time_AvsPEA.png}
     \caption{Time in ms to resolve the problem for each epsilon with $PEA^*$ algorithm and $h_2$.} \label{fig4}
 \end{figure}
-
 \section{Conclusions}
-As a conclusion we can observe in the tests performed that the best 
-algorithm is A* as it always finds the optimal solution, while sometimes 
-PEA* does not achieve it (not even reaching the target state) increasing 
+After all the tests we can observe $A^*$ always finds the optimal solution, while sometimes 
+$PEA^*$ does not achieve it (not even reaching the target state) increasing 
 the number of moves to perform and the cost while decreasing the time spent 
 as well as the number of expanded nodes. We also note that among the epsilon 
-values tested (0.1, 10, 100) the one that gives the best results is 10.
+values tested (0.01, 10, 100) the one that gives the best results is 100.
 
-As for the heuristics, according to the study carried out, the best is h2, 
+As for the heuristics, according to the study carried out, the best is $h_2$, 
 expanding fewer nodes than the rest as it is more informed and always obtaining 
-the optimal solution, the latter as well as h1 and h3. The worst of all we 
-see is h4, not being admissible and in the results not reaching the best possible 
+the optimal solution, the latter as well as $h_1$ and $h_3$. The worst of all we 
+see is $h_4$, not being admissible and in the results not reaching the best possible 
 solution in one of the occasions.
+
+We conclude that the best algorithm is $A^*$ because in this problem time is not
+a problematic factor since it moves between values of a few ms to 4 seconds and
+$PEA^*$ offers a small improvement compared to the increase of movements it generates.
 
 \bibliography{refs} 
 \bibliographystyle{ieeetr} 
