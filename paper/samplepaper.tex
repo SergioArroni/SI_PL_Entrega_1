@@ -16,7 +16,7 @@
 
 \begin{document}
 %
-\title{The best work\thanks{Degree in Software Engineering, University of Oviedo}}
+\title{The implication of the A* and PEA* algorithms in the 8-puzzle problem.\thanks{Degree in Software Engineering, University of Oviedo}}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -33,13 +33,13 @@ Antón de la Calle, Manuel \orcidID{276213}}
 \institute{Oviedo University, Oviedo Asturias, Spain\\
 \url{https://uniovi.es}}
 %
-\maketitle              % typeset the header of the contribution
+\maketitle             % typeset the header of the contribution
 %
 \begin{abstract}
-The abstract should briefly summarize the contents of the paper in
-15--250 words.
+    Search algorithms are very important in Artificial Intelligence because they are the basis for many of the solutions in the different fields of Artificial Intelligence. In this work we will explain the A* and PEA* algorithms and we will compare them in the 8-puzzle problem. We will explain the differences between them.
+    In addition, we will carry out an experimental study on the different heuristics we have used, which use the A* and PEA* algorithms. Finally, we will give our conclusion on the data obtained and we will say which is for us the better of the two algorithms. 
 
-\keywords{A*  \and PEA* \and Search \and heuristic \and 8-puzzle.}
+\keywords{A*  \and PEA* \and Search \and heuristic \and 8-puzzle \and IA \and Uniovi.}
 \end{abstract}
 %
 %
@@ -85,6 +85,9 @@ or west as long as the cell is empty in one of the locations.
 The cost of each movement is 1, and the goal is to reach the target state by adding as few movements as possible 
 and, therefore, achieving the lowest cost.
 
+The target state that we will consider is as follows:
+{1, 2, 3, 8, 0, 4, 7, 6, 5}
+
 \subsection{Classic methods of resolution}
 As I said at the beginning, the algorithms that can be used to solve this problem can be informed, such as algorithms 
 A*, PEA*, IDA*, and not informed such as DFID, BFS....
@@ -129,7 +132,7 @@ In the \(BF\) algorithm, we have two list, the list "open" that this list contai
 \end{enumerate}
 You can see a more detailed description and a implementation of the algorithm in Russell's and Norvig's book \cite{algorithms_2}.
 
-\subsection{\(A^*\)}
+\subsection{The \(A^*\) algorithm}
 
 The informed search algorithms are those that use the any information about the problem to expand the next node in the frontier.\\
 The \(A^*\) algorithm is a variation of the \(BF\) algorithm, this was proposed by Peter E. Hart, Nils J. Nilsson and Bertram Raphael in their work in 1968 \cite{algorithms_3}.\\
@@ -170,7 +173,7 @@ The \(A^*\) algorithm is as follows, we have two list, the list "open" that this
 One problem that have the \(A^*\) algorithm is that it can be very slow, because it can expand a lot of nodes, and this can be a problem if the problem has a lot of nodes. To solve this problem, we can use the PEA* algorithm.\\
 If you want to see a more detailed description and a implementation of the algorithm, you can see Russell's and Norvig's book \cite{algorithms_2}.
 
-\subsection{\(PEA^*\)}
+\subsection{The \(PEA^*\) algorithm}
 The \(PEA^*\) algorithm is a variation of the \(A^*\) algorithm, in fact it is faster than the base algorithm \(A^*\).
 \(PEA^*\) is a not admitted algorithm, this means that it is not guaranteed to find the optimal solution, but it is very fast and it is very useful in practice.
 The \(PEA^*\) algorithm have a function, very similar to the \(A^*\) function, but it is not the same, this function is called \(f_{PEA}^*(n)\) and is defined in equation \ref{eqn:pea*}:
@@ -185,17 +188,49 @@ Where \(g^*(n)\) is the cost of the path from the initial node to the node \(n\)
 You can see this algorithm in more detail in Maria Rita's tesis \cite{algorithms_5}.
 
 \section{Application of the A* and \(PEA^*\) algorithms to the 8-puzzle problem}
-The two algorithms that we are going to study are informed, i.e., we are facing a heuristic search and, therefore, we have to apply a heuristic to reach the solution, 
+The two algorithms that we are going to study are informed, i.e., we are facing a heuristic search and, therefore, 
 we have to apply a heuristic to reach the solution. The state space of this problem is defined by 
 the set of possible combinations on the board, i.e. the location of all the tiles.
+
+A* is admissible when an admissible heuristic is applied to it, but 
+PEA* is an $\varepsilon-admissible$ algorithm, which are algorithms that give up 
+admissibility when the problem size is too large. Therefore, for the 
+study of this algorithm applied to the 8-puzzle problem we will use 
+different values of epsilon to be specified in the experimental study.
 
 We will apply the same heuristics to both algorithms. They are the following:
 \begin{enumerate}
     \item h1(n): number of tiles that are out of place. Easy to perform, but does not provide the best possible results. Monotone.
     \item h2(n): sum of orthogonal distances from each tile to its final position. Effective for short problems giving the best solutions. Monotone.
     \item h3(n): 2*number of tiles at orthogonal distance 2 from their final position
+    \item h4(n): h2 multiplied by 0.4 summed with h1
 \end{enumerate}
+\subsection{Properties of heuristics}
+The first two heuristics are typical for solving the 8-puzzle problem with 
+the A* algorithm. They are monotone by satisfying that their sequence of 
+values f(n) of the expanded nodes is non-decreasing, and they also satisfy 
+that $$h(n1) \leq h(n2) + c(n1,n2)$$, and this also implies that they are admissible, 
+i.e., they always reach the optimal solution.
 
+On the other hand, we know that h2 is the best heuristic since the ideal 
+case is that the length of the trajectory to the target position is equal 
+to the orthogonal distance of the token to its target. Also this heuristic 
+is more informed than the rest, i.e., h2 dominates the rest of heuristics 
+tested for solving this problem, which means that all nodes expanded by h2 
+will be expanded by the rest of heuristics. It satisfies $$hx(n) < h2(n) \leq h^*(n)$$
+
+On the other hand, we believe that h3 also meets the characteristics 
+of the first two heuristics because of the data obtained in the study 
+shown in the next point of the practice. Anyway, it is not as good heuristic as h1 and h2.
+
+Finally, h4 is not monotonic because the f(n) values of the expanded 
+nodes is decreasing. Moreover, it is not admissible and we can make 
+the following proof:
+
+We know that h1 and h2 are admissible so they satisfy that 
+$$hx(n) \leq h^*(n)$$ for all values of n. If we then assume that 
+h1(n) = h2(n) = h*(n) = 1, we have that $$h4(n) = 1 + 0.4*1 > h*(n)$$, 
+so it does not satisfy the admissibility condition. 
 \section{Experimental study}
 In this section, we will test the algorithms to see if the theory holds.
 We will collect data for each algorithm separately, combining the different
@@ -351,7 +386,18 @@ Finally, we can see in the Table \ref{tab5} that $PEA^*$ is inadmissible due to 
 \end{table}
 
 \section{Conclusions}
-TODO
+As a conclusion we can observe in the tests performed that the best 
+algorithm is A* as it always finds the optimal solution, while sometimes 
+PEA* does not achieve it (not even reaching the target state) increasing 
+the number of moves to perform and the cost while decreasing the time spent 
+as well as the number of expanded nodes. We also note that among the epsilon 
+values tested (0.1, 10, 100) the one that gives the best results is 10.
+
+As for the heuristics, according to the study carried out, the best is h2, 
+expanding fewer nodes than the rest as it is more informed and always obtaining 
+the optimal solution, the latter as well as h1 and h3. The worst of all we 
+see is h4, not being admissible and in the results not reaching the best possible 
+solution in one of the occasions.
 
 \section{DE AQUI PARA ABAJO = BASURA, LO DEJO DE EJEMPLO}
 Please note that the first paragraph of a section or subsection is
@@ -394,7 +440,6 @@ For citations of references, we prefer the use of square brackets
 and consecutive numbers. Citations using labels or the author/year
 convention are also acceptable. The following bibliography provides
 a sample reference list with entries for journal
-\cite{BFS}
 %
 % ---- Bibliography ----
 %
@@ -408,7 +453,9 @@ a sample reference list with entries for journal
 \bibliography{refs} 
 \bibliographystyle{ieeetr} 
 \appendix
-\chapter*{Annex 1: Work Distribution }
-
-
+\chapter*{Annex 1: Work Distribution}
+Arroni del Riego, Sergio\orcidID{Uo276341}: I realize the Introduction, A*, PEA*, and BF algorithms explication, Abstract, and KeyWords.\\
+Galán Freire, Alejandro\orcidID{Uo277346}: I realize the 8-puzzle problem explication, the application of the A* and PEA* algorithms to the 8-puzzle problem, and conclusions.\\
+Antón de la Calle, Manuel\orcidID{Uo276213}: I realize the Experimental study.\\
+All: All of us did the tasks of writing in English and using LaTex for the writing of the work.
 \end{document}
