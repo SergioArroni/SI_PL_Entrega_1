@@ -200,10 +200,10 @@ different values of epsilon to be specified in the experimental study.
 
 We will apply the same heuristics to both algorithms. They are the following:
 \begin{enumerate}
-    \item h1(n): number of tiles that are out of place. Easy to perform, but does not provide the best possible results. Monotone.
-    \item h2(n): sum of orthogonal distances from each tile to its final position. Effective for short problems giving the best solutions. Monotone.
-    \item h3(n): 2*number of tiles at orthogonal distance 2 from their final position
-    \item h4(n): h2 multiplied by 0.4 summed with h1
+    \item $h_1(n)$: number of tiles that are out of place. Easy to perform, but does not provide the best possible results.
+    \item $h_2(n)$: sum of orthogonal distances from each tile to its final position. Effective for short problems giving the best solutions.
+    \item $h_3(n)$: $2*number$ of tiles at orthogonal distance 2 from their final position
+    \item $h_4(n)$: $h_2$ multiplied by 0.4 summed with $h_1$
 \end{enumerate}
 \subsection{Properties of heuristics}
 The first two heuristics are typical for solving the 8-puzzle problem with 
@@ -237,82 +237,59 @@ We will collect data for each algorithm separately, combining the different
 heuristics with various board instances with increasing costs. We will proceed to
 interpret the data to support or refute the theory and finally make a comparison between the two algorithms.
 \subsection{Experimental study design}
-To measure the differences between A* and \(PEA^*\) algorithms we will do some tests trying to resolve the  8-puzzle problem.
-The gathered data  will be the number of expanded nodes, the number of re-expanded nodes, the cost, the number of moves and the time to finish. Next, we will average the data collected and draw some graphs.
+To measure the differences between A* and \(PEA^*\) algorithms we will annotate 
+the number of expanded nodes, re-expanded nodes, the cost, the number of moves and the time to finish.
 
 With the \(PEA^*\) algorithm we will use an epsilon $\epsilon_1=0.01$, $\epsilon_2=10$ and $\epsilon_3=100$.
-We will run all tests of the AIMA3e project with a path cost function $f={cost}^{cost}$ and 
-all heuristics are implemented using the weighted version seen in the class $f={val}^{val}$ 
+The algorithms are implemented in the AIMA3e project with a path cost function $f={cost}^{cost}$ and 
+all heuristics will use the weighted version seen in the class $f={val}^{val}$ 
 where val is the value of the tile to move.
+The board instances we are going to test are of cost of 5, 15, 30 moves provided in the labs and now shown because of space limitation.
 
-The tests are run on a computer with a quad-core Intel i7 CPU and 12GB of RAM.
-
-The board instances we are going to test are of cost of 5, 15, 30 moves.
-
-\begin{itemize}
-    \item 5 minimum movements: 
-        \{1, 2, 3, 0, 8, 6, 7, 5, 4\}
-        \{1, 2, 3, 0, 4, 5, 8, 7, 6\}
-        \{1, 0, 2, 8, 6, 3, 7, 5, 4\}
-        \{2, 8, 3, 1, 6, 4, 7, 0, 5\}.
-
-    \item 15 minimum movements: 
-        \{7, 0, 3, 5, 1, 8, 2, 6, 4\}
-        \{6, 3, 5, 2, 1, 0, 8, 4, 7\}
-        \{6, 0, 3, 8, 1, 5, 4, 2, 7\}
-        \{7, 8, 3, 1, 5, 0, 4, 2, 6\}.
-
-\item 30 minimum movements
-        \{5, 6, 7, 4, 0, 8, 3, 2, 1\}
-        \{5, 4, 7, 6, 0, 3, 8, 2, 1\} 
-        \{3, 8, 7, 4, 0, 6, 5, 2, 1\}
-        \{5, 6, 3, 4, 0, 2, 7, 8, 1\}.
-\end{itemize}
+The computer is a quad-core Intel i7 CPU and 12GB of RAM.
 \subsection{Experimental results}
 The first tests are performed on the \(A^*\) algorithm using the different heuristics and board instances.
 
-Tables \ref{tab1} and \ref{tab2} collect the cost and moves for each heuristic and show how $h_1$, $h_2$, $h_3$ are admissible and $h_4$ are not,
+Table \ref{tab1} collect the cost and moves for each heuristic and show how $h_1$, $h_2$, $h_3$ are admissible and $h_4$ are not,
 since the theory tells us that the first three always find the best solution and therefore the first three heuristics must show the same, and $h_4$ an equal or higher cost.
 
-\begin{table}
-    \centering
-    \caption{Average path costs and moves for each heueristics using A* and the board instance of cost 15.}\label{tab1}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    Heuristic & Path cost & Moves\\
-    \hline
-    $h_1$ & 3,1119E+14 & 15\\
-    $h_2$ & 3,1119E+14 & 15\\
-    $h_3$ & 3,1119E+14 & 15\\
-    $h_4$ & 3,11474E+14 & 24\\
-    \hline
-    \end{tabular}
+\begin{table}[!htb]
+    \caption{Average path costs and moves for each heueristics using A* with board instances of 15 (left) and 30 (right).}\label{tab1}
+    \begin{minipage}{.5\linewidth}
+      \centering
+      \begin{tabular}{|l|l|l|}
+        \hline
+        Heuristic & Path cost & Moves\\
+        \hline
+        $h_1$ & 3,1119E+14 & 15\\
+        $h_2$ & 3,1119E+14 & 15\\
+        $h_3$ & 3,1119E+14 & 15\\
+        $h_4$ & 3,11474E+14 & 24\\
+        \hline
+        \end{tabular}
+    \end{minipage}%
+    \begin{minipage}{.5\linewidth}
+      \centering
+        \begin{tabular}{|l|l|l|}
+            \hline
+            Heuristic & Path cost & Moves\\
+            \hline
+            $h_1$ & 1,53474E+14    & 31\\
+            $h_2$ & 1,53474E+14    & 31\\
+            $h_3$ & 1,53474E+14    & 31\\
+            $h_4$ & 1,53743E+14    & 35\\
+            \hline
+            \end{tabular}
+    \end{minipage} 
 \end{table}
 
-\begin{table}
-    \centering
-    \caption{Average path costs and moves for each heueristics using A* and the board instance of cost 30.}\label{tab2}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    Heuristic & Path cost & Moves\\
-    \hline
-    $h_1$ & 1,53474E+14    & 31\\
-    $h_2$ & 1,53474E+14    & 31\\
-    $h_3$ & 1,53474E+14    & 31\\
-    $h_4$ & 1,53743E+14    & 35\\
-    \hline
-    \end{tabular}
-\end{table}
-Of the different heuristics tested, Figure \ref{fig2} and Figure \ref{fig3} shows that the one which gives the best results is $h_2$ since it offers shorter times than the rest,
-expands fewer nodes and finds the best solution, followed in second place by $h_1$.
+Of the different heuristics tested, Figure \ref{fig2} shows that the one which gives the best results is $h_2$ since it offers shorter times than the rest,
+expands fewer nodes (removed from the gram due to space limitation) and finds the best solution, followed in second place by $h_1$.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.65\textwidth]{seconds_A.png}
     \caption{Time in ms to resolve the problem for each heuristic with $A^*$ algorithm.} \label{fig2}
-    \vspace{10pt}
-    \includegraphics[width=0.65\textwidth]{expanded_nodes_A.png}
-    \caption{Number of expandend nodes for each heuristic using $A^*$ algorithm.} \label{fig3}
 \end{figure}
 Also, as demonstrated in Section 4, the heuristics $h_3$ and $h_4$ are not monotonic and consistent so they can re-expand nodes, this result is reflected in Table \ref{tab3}.
 
@@ -332,29 +309,45 @@ Also, as demonstrated in Section 4, the heuristics $h_3$ and $h_4$ are not monot
 \end{table}
 
 We now continue with the $PEA^*$ algorithm.
-First, we check that, as the theory predicts, the algorithm is inadmissible:
-The results of the costs the solutions found by $PEA^*$ collected in Tables \ref{tab3} and \ref{tab4} show how the algorithm is inadmissible, since,
-the costs obtained are equal to or higher than the costs in Tables \ref{tab1} and \ref{tab2} respectively.
-\begin{table}
-\centering
-\caption{Average path costs and moves for each heueristics using $PEA^*$, $\epsilon=10$ and the board instances of cost 15.}\label{tab4}
-\begin{tabular}{|l|l|l|}
-\hline
-Heuristic & Path cost & Moves\\
-\hline
-$h_1$ & 3,11474E+14    & 24\\
-$h_2$ & 3,95828E+14    & 28\\
-$h_3$ & 4,83597E+14    & 25\\
-$h_4$ & 3,96344E+14    & 33.5\\
-\hline
-\end{tabular}
+The results of the costs from the solutions found by $PEA^*$ collected in Table \ref{tab2}
+show how the algorithm is inadmissible, since, the costs obtained are equal to or higher than the costs in Table \ref{tab1}.
+
+\begin{table}[!htb]
+    \caption{Average path costs and moves for each heueristics using $PEA^*$, $\epsilon=10$ and with board instances of 15 (left) and 30 (right).}\label{tab2}
+    \begin{minipage}{.5\linewidth}
+      \centering
+      \begin{tabular}{|l|l|l|}
+        \hline
+        Heuristic & Path cost & Moves\\
+        \hline
+        $h_1$ & 3,11474E+14    & 24\\
+        $h_2$ & 3,95828E+14    & 28\\
+        $h_3$ & 4,83597E+14    & 25\\
+        $h_4$ & 3,96344E+14    & 33.5\\
+        \hline
+        \end{tabular}
+    \end{minipage}%
+    \begin{minipage}{.5\linewidth}
+      \centering
+        \begin{tabular}{|l|l|l|}
+            \hline 
+            Heuristic & Path cost & Moves\\
+            \hline
+            $h_1$ & 1,53510E+14    & 36\\
+            $h_2$ & 2,46159E+14    & 42\\
+            $h_3$ & 4,04707E+14    & 30\\
+            $h_4$ & 4,05508E+14    & 44.5\\
+            \hline
+            \end{tabular}
+    \end{minipage} 
 \end{table}
+
 
 Next, let's compare the two algorithms:
 This algorithm is used to decrease times and number of nodes expanded
 with respect to $A^*$ in exchange for not finding the best solution (not admissible) so, we will compare it with the best heristic of $A^*$, i.e., we will compare it with $h_2$.
 
-Figures \ref{fig4} and \ref{fig5} show how for more complicated board configurations the $PEA^*$ algorithm gives better performance than $A^*$ respresenting with $\epsilon=0$.
+Figures \ref{fig4} show how for more complicated board configurations the $PEA^*$ algorithm gives better performance than $A^*$ respresenting with $\epsilon=0$.
 It highlights how $\epsilon=100$ offers better performance in these tests.
 
 \begin{figure}
@@ -362,28 +355,6 @@ It highlights how $\epsilon=100$ offers better performance in these tests.
     \includegraphics[width=0.65\textwidth]{time_AvsPEA.png}
     \caption{Time in ms to resolve the problem for each epsilon with $PEA^*$ algorithm and $h_2$.} \label{fig4}
 \end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.65\textwidth]{expanded_nodes_PEA.png}
-\caption{Number of expandend nodes for each epsilon with $PEA^*$ algorithm and $h_2$.} \label{fig5}
-\end{figure}
-
-Finally, we can see in the Table \ref{tab5} that $PEA^*$ is inadmissible due to the higher costs of the solutions found.
-\begin{table}
-    \centering
-    \caption{Average path costs and moves for each heueristics using $PEA^*$, $\epsilon=10$ and the board instances of cost 30.}\label{tab5}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    Heuristic & Path cost & Moves\\
-    \hline
-    $h_1$ & 1,53510E+14    & 36\\
-    $h_2$ & 2,46159E+14    & 42\\
-    $h_3$ & 4,04707E+14    & 30\\
-    $h_4$ & 4,05508E+14    & 44.5\\
-    \hline
-    \end{tabular}
-\end{table}
 
 \section{Conclusions}
 As a conclusion we can observe in the tests performed that the best 
@@ -398,57 +369,6 @@ expanding fewer nodes than the rest as it is more informed and always obtaining
 the optimal solution, the latter as well as h1 and h3. The worst of all we 
 see is h4, not being admissible and in the results not reaching the best possible 
 solution in one of the occasions.
-
-\section{DE AQUI PARA ABAJO = BASURA, LO DEJO DE EJEMPLO}
-Please note that the first paragraph of a section or subsection is
-not indented. The first paragraph that follows a table, figure,
-equation etc. does not need an indent, either.
-
-Subsequent paragraphs, however, are indented.
-
-\subsubsection{Sample Heading (Third Level)} Only two levels of
-headings should be numbered. Lower level headings remain unnumbered;
-they are formatted as run-in headings.
-
-\paragraph{Sample Heading (Fourth Level)}
-The contribution should contain no more than four levels of
-headings. Table~\ref{tab1} gives a summary of all heading levels.
-
-\noindent Displayed equations are centered and set on a separate
-line.
-\begin{equation}
-x + y = z
-\end{equation}
-Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig1}).
-
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
-%
-% the environments 'definition', 'lemma', 'proposition', 'corollary',
-% 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
-\begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
-\end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-%
-% ---- Bibliography ----
-%
-% BibTeX users should specify bibliography style 'splncs04'.
-% References will then be sorted and formatted in the correct style.
-%
-% \bibliographystyle{splncs04}
-% \bibliography{mybibliography}
-%
 
 \bibliography{refs} 
 \bibliographystyle{ieeetr} 
