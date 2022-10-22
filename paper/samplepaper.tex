@@ -197,7 +197,158 @@ We will apply the same heuristics to both algorithms. They are the following:
 \end{enumerate}
 
 \section{Experimental study}
-TODO
+In this section, we will test the algorithms to see if the theory holds.
+We will collect data for each algorithm separately, combining the different
+heuristics with various board instances with increasing costs. We will proceed to
+interpret the data to support or refute the theory and finally make a comparison between the two algorithms.
+\subsection{Experimental study design}
+To measure the differences between A* and \(PEA^*\) algorithms we will do some tests trying to resolve the  8-puzzle problem.
+The gathered data  will be the number of expanded nodes, the number of re-expanded nodes, the cost, the number of moves and the time to finish. Next, we will average the data collected and draw some graphs.
+
+With the \(PEA^*\) algorithm we will use an epsilon $\epsilon_1=0.01$, $\epsilon_2=10$ and $\epsilon_3=100$.
+We will run all tests of the AIMA3e project with a path cost function $f={cost}^{cost}$ and 
+all heuristics are implemented using the weighted version seen in the class $f={val}^{val}$ 
+where val is the value of the tile to move.
+
+The tests are run on a computer with a quad-core Intel i7 CPU and 12GB of RAM.
+
+The board instances we are going to test are of cost of 5, 15, 30 moves.
+
+\begin{itemize}
+    \item 5 minimum movements: 
+        \{1, 2, 3, 0, 8, 6, 7, 5, 4\}
+        \{1, 2, 3, 0, 4, 5, 8, 7, 6\}
+        \{1, 0, 2, 8, 6, 3, 7, 5, 4\}
+        \{2, 8, 3, 1, 6, 4, 7, 0, 5\}.
+
+    \item 15 minimum movements: 
+        \{7, 0, 3, 5, 1, 8, 2, 6, 4\}
+        \{6, 3, 5, 2, 1, 0, 8, 4, 7\}
+        \{6, 0, 3, 8, 1, 5, 4, 2, 7\}
+        \{7, 8, 3, 1, 5, 0, 4, 2, 6\}.
+
+\item 30 minimum movements
+        \{5, 6, 7, 4, 0, 8, 3, 2, 1\}
+        \{5, 4, 7, 6, 0, 3, 8, 2, 1\} 
+        \{3, 8, 7, 4, 0, 6, 5, 2, 1\}
+        \{5, 6, 3, 4, 0, 2, 7, 8, 1\}.
+\end{itemize}
+\subsection{Experimental results}
+The first tests are performed on the \(A^*\) algorithm using the different heuristics and board instances.
+
+Tables \ref{tab1} and \ref{tab2} collect the cost and moves for each heuristic and show how $h_1$, $h_2$, $h_3$ are admissible and $h_4$ are not,
+since the theory tells us that the first three always find the best solution and therefore the first three heuristics must show the same, and $h_4$ an equal or higher cost.
+
+\begin{table}
+    \centering
+    \caption{Average path costs and moves for each heueristics using A* and the board instance of cost 15.}\label{tab1}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Heuristic & Path cost & Moves\\
+    \hline
+    $h_1$ & 3,1119E+14 & 15\\
+    $h_2$ & 3,1119E+14 & 15\\
+    $h_3$ & 3,1119E+14 & 15\\
+    $h_4$ & 3,11474E+14 & 24\\
+    \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{Average path costs and moves for each heueristics using A* and the board instance of cost 30.}\label{tab2}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Heuristic & Path cost & Moves\\
+    \hline
+    $h_1$ & 1,53474E+14    & 31\\
+    $h_2$ & 1,53474E+14    & 31\\
+    $h_3$ & 1,53474E+14    & 31\\
+    $h_4$ & 1,53743E+14    & 35\\
+    \hline
+    \end{tabular}
+\end{table}
+Of the different heuristics tested, Figure \ref{fig2} and Figure \ref{fig3} shows that the one which gives the best results is $h_2$ since it offers shorter times than the rest,
+expands fewer nodes and finds the best solution, followed in second place by $h_1$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\textwidth]{seconds_A.png}
+    \caption{Time in ms to resolve the problem for each heuristic with $A^*$ algorithm.} \label{fig2}
+    \vspace{10pt}
+    \includegraphics[width=0.65\textwidth]{expanded_nodes_A.png}
+    \caption{Number of expandend nodes for each heuristic using $A^*$ algorithm.} \label{fig3}
+\end{figure}
+Also, as demonstrated in Section 4, the heuristics $h_3$ and $h_4$ are not monotonic and consistent so they can re-expand nodes, this result is reflected in Table \ref{tab3}.
+
+\begin{table}
+    \centering
+    \caption{Nodes re-expanded for each heuristic using $A^*$ and the board instances (\{7, 0, 3, 5, 1, 8, 2, 6, 4\}) and (\{5, 6, 7, 4, 0, 8, 3, 2, 1\}) of cost 15 and 30 respectively. }\label{tab3}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Heuristic & Cost 15 & Cost 30\\
+    \hline
+    $h_1$ & 0 & 0\\
+    $h_2$ & 0 & 0\\
+    $h_3$ & 82680 & 129155 \\
+    $h_4$ & 90 & 9982\\
+    \hline
+    \end{tabular}
+\end{table}
+
+We now continue with the $PEA^*$ algorithm.
+First, we check that, as the theory predicts, the algorithm is inadmissible:
+The results of the costs the solutions found by $PEA^*$ collected in Tables \ref{tab3} and \ref{tab4} show how the algorithm is inadmissible, since,
+the costs obtained are equal to or higher than the costs in Tables \ref{tab1} and \ref{tab2} respectively.
+\begin{table}
+\centering
+\caption{Average path costs and moves for each heueristics using $PEA^*$, $\epsilon=10$ and the board instances of cost 15.}\label{tab4}
+\begin{tabular}{|l|l|l|}
+\hline
+Heuristic & Path cost & Moves\\
+\hline
+$h_1$ & 3,11474E+14    & 24\\
+$h_2$ & 3,95828E+14    & 28\\
+$h_3$ & 4,83597E+14    & 25\\
+$h_4$ & 3,96344E+14    & 33.5\\
+\hline
+\end{tabular}
+\end{table}
+
+Next, let's compare the two algorithms:
+This algorithm is used to decrease times and number of nodes expanded
+with respect to $A^*$ in exchange for not finding the best solution (not admissible) so, we will compare it with the best heristic of $A^*$, i.e., we will compare it with $h_2$.
+
+Figures \ref{fig4} and \ref{fig5} show how for more complicated board configurations the $PEA^*$ algorithm gives better performance than $A^*$ respresenting with $\epsilon=0$.
+It highlights how $\epsilon=100$ offers better performance in these tests.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\textwidth]{time_AvsPEA.png}
+    \caption{Time in ms to resolve the problem for each epsilon with $PEA^*$ algorithm and $h_2$.} \label{fig4}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\textwidth]{expanded_nodes_PEA.png}
+\caption{Number of expandend nodes for each epsilon with $PEA^*$ algorithm and $h_2$.} \label{fig5}
+\end{figure}
+
+Finally, we can see in the Table \ref{tab5} that $PEA^*$ is inadmissible due to the higher costs of the solutions found.
+\begin{table}
+    \centering
+    \caption{Average path costs and moves for each heueristics using $PEA^*$, $\epsilon=10$ and the board instances of cost 30.}\label{tab5}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Heuristic & Path cost & Moves\\
+    \hline
+    $h_1$ & 1,53510E+14    & 36\\
+    $h_2$ & 2,46159E+14    & 42\\
+    $h_3$ & 4,04707E+14    & 30\\
+    $h_4$ & 4,05508E+14    & 44.5\\
+    \hline
+    \end{tabular}
+\end{table}
 
 \section{Conclusions}
 TODO
@@ -216,23 +367,6 @@ they are formatted as run-in headings.
 \paragraph{Sample Heading (Fourth Level)}
 The contribution should contain no more than four levels of
 headings. Table~\ref{tab1} gives a summary of all heading levels.
-
-\begin{table}
-\caption{Table captions should be placed above the
-tables.}\label{tab1}
-\begin{tabular}{|l|l|l|}
-\hline
-Heading level &  Example & Font size and style\\
-\hline
-Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
-1st-level heading &  {\large\bfseries 1 Introduction} & 12 point, bold\\
-2nd-level heading & {\bfseries 2.1 Printing Area} & 10 point, bold\\
-3rd-level heading & {\bfseries Run-in Heading in Bold.} Text follows & 10 point, bold\\
-4th-level heading & {\itshape Lowest Level Heading.} Text follows & 10 point, italic\\
-\hline
-\end{tabular}
-\end{table}
-
 
 \noindent Displayed equations are centered and set on a separate
 line.
